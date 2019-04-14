@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.taeyoung.project.member.memberInterface">
+	<insert id="insertMember" parameterType="com.taeyoung.project.member.memberInfo">
+		insert into project_member values(#{member_id},#{member_pw},#{member_name},#{member_gender},#{member_birth},#{member_mail})
+	</insert>
+	<select id="getMember" parameterType="com.taeyoung.project.member.memberInfo" resultType="com.taeyoung.project.member.memberInfo">
+		select*from project_member where member_id=#{member_id}
+	</select>
+	<update id="updateMember" parameterType="com.taeyoung.project.member.memberInfo">
+		update project_member set member_pw=#{member_pw}, member_name=#{member_name}, member_gender=#{member_gender}, member_birth=#{member_birth}, member_mail=#{member_mail} where member_id = #{member_id}
+	</update>
+	<delete id="deleteMember" parameterType="com.taeyoung.project.member.memberInfo">
+		delete from project_member where member_id=#{member_id}
+	</delete>
+</mapper>

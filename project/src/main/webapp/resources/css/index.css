@@ -1,0 +1,56 @@
+@CHARSET "UTF-8";
+body{
+	padding:0;
+	margin:0;
+}
+#title{
+	width:100%;
+	position:absolute;
+	top:0;
+	height:100px;
+}
+#siteName{
+	float:left;
+	width:60%;
+	height:100%;
+	text-align:center;
+	color:orange;
+	font-size:50pt;
+	font-weight:bold;
+}
+#logInBox{
+	float:left;
+	width:30%;
+	height:100%;
+}
+#menu{
+	left:10%;
+	width:80%;
+	height:60px;
+	position:absolute;
+	top:120px;
+}
+#menuTable{
+	width:100%;
+	height:100%;
+}
+.menuTd{
+	background-color:red;
+	color:white;
+	font-size:15pt;
+	font-weight:bold;
+	cursor:pointer;
+	transition:all 1s ease 0s;
+}
+.menuTd::hover{
+	background-color:yellow;
+	color:black;
+}
+#mainPage{
+	width:100%;
+	height:auto;
+	position:absolute;
+	top:180px;
+	padding:0;
+	margin:0;
+}
