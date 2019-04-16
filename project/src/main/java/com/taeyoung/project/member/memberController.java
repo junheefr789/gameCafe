@@ -82,6 +82,7 @@ public class memberController {
 	@RequestMapping(value = "/logOut.go", method = RequestMethod.GET)
 	public String logOut(HttpServletRequest request) {
 		request.getSession().removeAttribute("member");
+		request.getSession().removeAttribute("Member");
 		request.setAttribute("logInBox", "member/logBefore.jsp");
 		request.setAttribute("contentPage", "mainContent.jsp");
 		return "index";

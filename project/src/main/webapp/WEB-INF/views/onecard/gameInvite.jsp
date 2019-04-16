@@ -28,6 +28,7 @@
 			}else if(data.indexOf("_")!=-1){
 				data = data.substring(1);
 				$("#chatingDiv").append(data+"<br>");
+				$("#chatingDiv").scrollTop($("#chatingDiv")[0].scrollHeight);
 			}else if(data.indexOf("&")!=-1){
 				data = data.substring(1);
 				var con = confirm(data+"님께서 게임을 신청하셨습니다. 수락하시겠습니까?");
@@ -51,40 +52,49 @@
 			$("#chatingDiv").append("서버와 연결 끊김");
 		}
 		var str="%_&*#";
-		$("#writeButton").click(function(){
+		$(document).keydown(function(e){
+			if (e.keyCode==13) {
+				$("#writeButton").trigger("click");
+			}
+		});
+		$("#writeButton").bind("click",function(){
 			var write = $("#writeText").val();
-			var check = true;
 			if (!write) {
 				alert("내용이 없습니다");
+				$("#writeText").autofocus;
 				return;
 			}
 			for (var i = 0; i < str.length; i++) {
 				if (write.indexOf(str[i])!=-1) {
 					alert("%^&*#은 쓸수 없습니다!");
-					check=false;
+					$("#writeText").autofocus;
 					return;
 				}
 			}
-			if (check) {
-				sendMessage(write);
-				$("#writeText").val("");
-			}
+			sendMessage(write);
+			$("#writeText").val("");
+			$("#writeText").autofocus;
 		});
 		$(document).on("click",".idButton",function(){
 			var message = "&"+$(this).attr("id");
-			sendMessage(message);
+			var con = confirm($(this).attr("id")+"님께 게임신청하시겠습니까?");
+			if (con) {
+				sendMessage(message);
+			}else{
+				return;
+			}
 		});
 	});
 </script>
 <style type="text/css">
 #inviteMainDiv{
 	top:50px;
-	width:50%;
+	width:40%;
 	position:absolute;
-	height:500px;
+	height:550px;
 	margin:0;
 	padding:0;
-	left:25%;
+	left:30%;
 }
 #chatingDiv{
 	width:100%;
@@ -118,8 +128,11 @@
 	padding:0;
 	float:right;
 	width:150px;
-	height:auto;
+	height:300px;
 	right:50px;
+	font-size:12pt;
+	text-align:center;
+	overflow:auto;
 }
 .idButton{
 	width:100%;
@@ -132,11 +145,12 @@
 		<div id="chatingDiv">
 		</div>
 		<div id="writeDiv">
-			<input id="writeText">
+			<input id="writeText" autocomplete="off" autofocus>
 			<input type="button" id="writeButton" value="작성">
 		</div>
 	</div>
 	<div id="inviteIdDiv">
+		접속한 아이디
 	</div>
 </body>
 </html>
