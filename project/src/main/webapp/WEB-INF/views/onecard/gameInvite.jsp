@@ -8,62 +8,135 @@
 <title>Insert title here</title>
 <script type="text/javascript">
 	$(function(){
-		$("#writeButton").click(function(){
-			sendMessage();
-			$("#writeText").val("");
-		});
 		var sock = new SockJS("<c:url value="/echo"/>");
 		sock.onmessage = onMessage;
 		sock.onclose = onClose;
 	
-		function sendMessage(){
-			sock.send($("#writeText").val());
+		function sendMessage(message){
+			sock.send(message);
 		}
-		function onMessage(msg){
-			var data = msg.data;
-			$("#chatingDiv").append(data+"<br>");
+		function onMessage(d){
+			var data = d.data;
+			if (data.indexOf("%")!=-1) {
+				data = data.substring(1);
+				var button = $("<button></button>").attr("class","idButton").attr("id",data).text(data);
+				$("#inviteIdDiv").append(button);
+			}else if(data.indexOf("#")!=-1){
+				data = data.substring(1);
+				var button = $("button").attr("id",data);
+				button.remove();
+			}else if(data.indexOf("_")!=-1){
+				data = data.substring(1);
+				$("#chatingDiv").append(data+"<br>");
+			}else if(data.indexOf("&")!=-1){
+				data = data.substring(1);
+				var con = confirm(data+"님께서 게임을 신청하셨습니다. 수락하시겠습니까?");
+				if (con) {
+					sendMessage("%"+data);					
+					location.href="onecardGame.go?invite="+data;
+				}else{
+					sendMessage("_"+data);					
+				}
+			}else if (data.indexOf("*")!=-1) {
+				data = data.substring(1);
+				if (data.indexOf("No")!=-1) {
+					alert("거절하셨습니다");
+					return;
+				}else{
+					location.href="onecardGame.go?invite="+data;
+				}
+			}
 		}
 		function onClose(evt){
-			$("#chatingDiv").append("연결 끊김");
+			$("#chatingDiv").append("서버와 연결 끊김");
 		}
+		var str="%_&*#";
+		$("#writeButton").click(function(){
+			var write = $("#writeText").val();
+			var check = true;
+			if (!write) {
+				alert("내용이 없습니다");
+				return;
+			}
+			for (var i = 0; i < str.length; i++) {
+				if (write.indexOf(str[i])!=-1) {
+					alert("%^&*#은 쓸수 없습니다!");
+					check=false;
+					return;
+				}
+			}
+			if (check) {
+				sendMessage(write);
+				$("#writeText").val("");
+			}
+		});
+		$(document).on("click",".idButton",function(){
+			var message = "&"+$(this).attr("id");
+			sendMessage(message);
+		});
 	});
 </script>
 <style type="text/css">
-#chatingDiv{
-	width:60%;
-	left:20%;
-	height:500px;
-	position:absolute;
+#inviteMainDiv{
 	top:50px;
-	border:black solid 1px;
+	width:50%;
+	position:absolute;
+	height:500px;
+	margin:0;
+	padding:0;
+	left:25%;
+}
+#chatingDiv{
+	width:100%;
+	height:90%;
+	background-color:orange;
+	color:black;
+	font-size:13pt;
+	font-weight:bold;
+	display:block;
+	overflow:auto;
 }
 #writeDiv{
-	bottom:0;
-	position:fixed;
 	width:100%;
-	height:130px;
+	height:10%;
+	text-align:center;
 }
 #writeText{
-	width:40%;
-	height:90px;
-	margin-left:30%;
 	float:left;
+	width:75%;
+	height:100%;
 }
 #writeButton{
 	float:left;
-	width:70px;
-	height:90px;
-	margin-top:0;
-	margin-left:30px;
+	width:24%;
+	height:100%;
+}
+#inviteIdDiv{
+	position:absolute;
+	top:50px;
+	magin:0;
+	padding:0;
+	float:right;
+	width:150px;
+	height:auto;
+	right:50px;
+}
+.idButton{
+	width:100%;
+	height:40px;
 }
 </style>
 </head>
 <body>
-	<div id="chatingDiv">
+	<div id="inviteMainDiv">
+		<div id="chatingDiv">
+		</div>
+		<div id="writeDiv">
+			<input id="writeText">
+			<input type="button" id="writeButton" value="작성">
+		</div>
 	</div>
-	<div id="writeDiv">
-		<input id="writeText">
-		<button id="writeButton">작성</button>
+	<div id="inviteIdDiv">
 	</div>
 </body>
 </html>

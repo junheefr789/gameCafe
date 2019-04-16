@@ -13,6 +13,15 @@
 		if (result) {
 			alert(result);
 		}
+		$("#onecardMenu").click(function(){
+			var id = "${sessionScope.member.member_id}";
+			if (!id) {
+				alert("로그인을 하셔야합니다!!");
+				return;
+			}else{
+				location.href="onecardInvite.go";
+			}
+		});
 	});
 </script>
 <link rel="stylesheet" type="text/css" href="resources/css/index.css">
@@ -29,8 +38,8 @@
 	<div id="menu">
 		<table id="menuTable">
 			<tr>
-				<td class="menuTd" align="center">원카드게임</td>
-				<td class="menuTd" align="center">자료실</td>
+				<td class="menuTd" align="center" id="onecardMenu">원카드게임</td>
+				<td class="menuTd" align="center" id="dataMenu">자료실</td>
 			</tr>
 		</table>
 	</div>

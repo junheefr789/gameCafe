@@ -11,7 +11,7 @@ public class onecardController {
 
 	@RequestMapping(value = "/onecardInvite.go", method = RequestMethod.GET)
 	public String onecardInvite(HttpServletRequest request) {
-		request.setAttribute("logInBox", "member/logBefore.jsp");
+		request.setAttribute("logInBox", "member/logAfter.jsp");
 		request.setAttribute("contentPage", "onecard/gameInvite.jsp");
 		return "index";
 	}
