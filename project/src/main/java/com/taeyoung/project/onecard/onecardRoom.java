@@ -24,10 +24,12 @@ public class onecardRoom {
 	private boolean user1Attack;
 	private boolean user2Attack;
 	private ArrayList<Integer> attackCard;
+	private String win;
 	
 	public onecardRoom() {
 		user1Id="member1";
 		user2Id="member2";
+		win = null;
 		card= new ArrayList<>();
 		user1Card = new ArrayList<>();
 		user2Card = new ArrayList<>();
@@ -118,6 +120,10 @@ public class onecardRoom {
 			winner.add(user1Id);
 			jo.put("winner", winner);
 			return jo;
+		}else if(win!=null){
+			winner.add(win);
+			jo.put("winner", winner);
+			return jo;
 		}else{
 			jo.put("winner", winner);
 		}
@@ -179,11 +185,11 @@ public class onecardRoom {
 							}
 						}
 					}
+					attackCard.clear();
 					user2.clear();
 					for (int i = 0; i < user2Card.size(); i++) {
 						user2.add(user2Card.get(i));
 					}
-					attackCard.clear();
 				}
 				user1Attack = false;
 			}else{
@@ -214,10 +220,10 @@ public class onecardRoom {
 						}
 					}
 					attackCard.clear();
-				}
-				user2.clear();
-				for (int i = 0; i < user2Card.size(); i++) {
-					user2.add(user2Card.get(i));
+					user2.clear();
+					for (int i = 0; i < user2Card.size(); i++) {
+						user2.add(user2Card.get(i));
+					}
 				}
 				user1Attack = false;
 			}
@@ -251,10 +257,10 @@ public class onecardRoom {
 						}
 					}
 					attackCard.clear();
-				}
-				user1.clear();
-				for (int i = 0; i < user1Card.size(); i++) {
-					user1.add(user1Card.get(i));
+					user1.clear();
+					for (int i = 0; i < user1Card.size(); i++) {
+						user1.add(user1Card.get(i));
+					}
 				}
 				user2Attack = false;
 			}else{
@@ -266,28 +272,29 @@ public class onecardRoom {
 				jo.put("attack", attack);
 				jo.put("defend", defend);
 				if (defend.size()==0) {
-					attackCard.clear();
 					for (int i = 0; i < attackCard.size(); i++) {
 						if (attackCard.get(i)==502) {
 							for (int j = 0; j < 5; j++) {
-								user2Card.add(card.get(card.size()-1));
+								user1Card.add(card.get(card.size()-1));
 								card.remove(card.size()-1);
 							}
 						}else if (attackCard.get(i)==501) {
 							for (int j = 0; j < 3; j++) {
-								user2Card.add(card.get(card.size()-1));
+								user1Card.add(card.get(card.size()-1));
 								card.remove(card.size()-1);
 							}
 						}else{
 							for (int j = 0; j < 2; j++) {
-								user2Card.add(card.get(card.size()-1));
+								user1Card.add(card.get(card.size()-1));
 								card.remove(card.size()-1);
 							}
 						}
 					}
-				}
-				for (int i = 0; i < user1Card.size(); i++) {
-					user1.add(user1Card.get(i));
+					attackCard.clear();
+					user1.clear();
+					for (int i = 0; i < user1Card.size(); i++) {
+						user1.add(user1Card.get(i));
+					}
 				}
 				user2Attack = false;
 			}
@@ -371,6 +378,13 @@ public class onecardRoom {
 			visited[0]=false;
 			visited[1]=false;
 			return jo;
+		}
+	}
+	public void giveUp(HttpServletRequest request){
+		if (request.getRemoteAddr().equals(user1Ip)) {
+			win = user2Id;
+		}else{
+			win = user1Id;
 		}
 	}
 }

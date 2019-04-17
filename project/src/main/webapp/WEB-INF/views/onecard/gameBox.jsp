@@ -16,6 +16,16 @@
 		if (id==firstId) {
 			turn = true;
 		}
+		$(window).on("beforeunload",function(){
+			var con = confirm("정말로 게임을 그만두시겠습니까?");
+			if (con) {
+				$.ajax({
+					url:"gameGiveUp.go"
+				});
+			}else{
+				return;
+			}
+		});
 		getCard();
 		function getCard(){
 			$.ajax({
@@ -39,14 +49,14 @@
 							floorCard = data.floorCard[0];
 							$("#myTr").empty();
 							$.each(data[id],function(key,value){
-								var img = $("<img>").attr("class","card").attr("id",value).attr("src","resources/img/card/"+value+".png").css("margin-top",30+"px");
+								var img = $("<img>").attr("class","card").attr("src","resources/img/card/"+value+".png").data("cardNumber",value).css("margin-top",30+"px");
 								var td = $("<td></td>");
 								$("#myTr").append(td.append(img));
 							});
 							$("#floorCard").attr("src","resources/img/card/"+floorCard+".png");
 							if (turn) {
 								if (data.attack[0]&&data.defend[0]) {
-									defendCard=data.defend[0];
+									defendCard=data.defend;
 									alert("당신은 공격받았습니다 반드시 방어하셔야 합니다!!");
 									$("#pushButton").css("display","block");
 									$(".card").attr("class","myCard").css("cursor","pointer");
@@ -76,7 +86,7 @@
 			$.ajax({
 				url:"receiveCard.go",
 				success:function(data){
-					var img = $("<img>").attr("class","myCard").attr("id",data.receiveCard[0]).attr("src","resources/img/card/"+data.receiveCard[0]+".png").css("cursor","pointer").css("margin-top",30+"px");
+					var img = $("<img>").attr("class","myCard").attr("src","resources/img/card/"+data.receiveCard[0]+".png").data("cardNumber",data.receiveCard[0]).css("cursor","pointer").css("margin-top",30+"px");
 					var td = $("<td></td>");
 					$("#myTr").append(td.append(img));
 				}
@@ -102,7 +112,7 @@
 			}
 		});
 		$(document).on("click",".myCard",function(){
-			var select = $(this).attr("id");
+			var select = $(this).data("cardNumber");
 			if (defendCard.length==0) {
 				if ($(this).css("margin-top")==0+"px") {
 					for (var i = 0; i < selectList.length; i++) {

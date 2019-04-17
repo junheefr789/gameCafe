@@ -69,4 +69,11 @@ public class onecardRoomMaster {
 			}
 		}
 	}
+	public void giveUp(HttpServletRequest request){
+		for (int i = 0; i < roomList.size(); i++) {
+			if (request.getRemoteAddr().equals(roomList.get(i).getUser1Ip())||request.getRemoteAddr().equals(roomList.get(i).getUser2Ip())) {
+			
+			}
+		}
+	}
 }

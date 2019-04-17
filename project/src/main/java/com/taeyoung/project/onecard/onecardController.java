@@ -47,5 +47,9 @@ public class onecardController {
 		request.setAttribute("contentPage", "onecard/gameInvite.jsp");
 		return "index";
 	}
+	@RequestMapping(value = "/gameGiveUp.go", method = RequestMethod.GET)
+	public void giveUp(HttpServletRequest request) {
+		orm.deleteRoom(request);
+	}
 	
 }
