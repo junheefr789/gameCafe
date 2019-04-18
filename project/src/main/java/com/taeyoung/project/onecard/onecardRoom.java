@@ -339,7 +339,7 @@ public class onecardRoom {
 		if (request.getRemoteAddr().equals(user1Ip)) {
 			String[] pushCard = request.getParameterValues("pushCard");
 			for (int i = 0; i < pushCard.length; i++) {
-				card.add(i,Integer.parseInt(pushCard[i]));
+				card.add(0,Integer.parseInt(pushCard[i]));
 				if (Integer.parseInt(pushCard[i])%100==1||Integer.parseInt(pushCard[i])>500) {
 					attackCard.add(Integer.parseInt(pushCard[i]));
 					user1Attack = true;
@@ -360,7 +360,7 @@ public class onecardRoom {
 		}else{
 			String[] pushCard = request.getParameterValues("pushCard");
 			for (int i = 0; i < pushCard.length; i++) {
-				card.add(i,Integer.parseInt(pushCard[i]));
+				card.add(0,Integer.parseInt(pushCard[i]));
 				if (Integer.parseInt(pushCard[i])%100==1||Integer.parseInt(pushCard[i])>500) {
 					attackCard.add(Integer.parseInt(pushCard[i]));
 					user2Attack = true;

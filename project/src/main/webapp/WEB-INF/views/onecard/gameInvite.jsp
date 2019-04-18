@@ -76,8 +76,8 @@
 			$("#writeText").autofocus;
 		});
 		$(document).on("click",".idButton",function(){
-			var message = "&"+$(this).attr("id");
-			var con = confirm($(this).attr("id")+"님께 게임신청하시겠습니까?");
+			var message = "&"+$(this).data("id_name");
+			var con = confirm($(this).data("id_name")+"님께 게임신청하시겠습니까?");
 			if (con) {
 				sendMessage(message);
 			}else{
