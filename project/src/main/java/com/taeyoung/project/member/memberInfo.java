@@ -1,5 +1,7 @@
 package com.taeyoung.project.member;
 
+import javax.servlet.http.HttpSession;
+
 public class memberInfo {
 	private String member_id;
 	private String member_pw;
@@ -7,11 +9,12 @@ public class memberInfo {
 	private String member_gender;
 	private String member_birth;
 	private String member_mail;
+	private String member_ip;
+	private HttpSession member_session;
 	
 	public memberInfo() {
-		// TODO Auto-generated constructor stub
 	}
-
+	
 	public String getMember_id() {
 		return member_id;
 	}
@@ -58,6 +61,22 @@ public class memberInfo {
 
 	public void setMember_mail(String member_mail) {
 		this.member_mail = member_mail;
+	}
+
+	public String getMember_ip() {
+		return member_ip;
+	}
+
+	public void setMember_ip(String member_ip) {
+		this.member_ip = member_ip;
+	}
+
+	public HttpSession getMember_session() {
+		return member_session;
+	}
+
+	public void setMember_session(HttpSession member_session) {
+		this.member_session = member_session;
 	}
 	
 	

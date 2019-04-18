@@ -12,7 +12,7 @@ public class memberController {
 
 	@Autowired
 	private memberDAO md;
-
+	
 	@RequestMapping(value = "/newMember.go", method = RequestMethod.GET)
 	public String newMember(HttpServletRequest request) {
 		request.setAttribute("logInBox", "member/logBefore.jsp");
@@ -83,6 +83,7 @@ public class memberController {
 	public String logOut(HttpServletRequest request) {
 		request.getSession().removeAttribute("member");
 		request.getSession().removeAttribute("Member");
+		md.deleteSession(request);
 		request.setAttribute("logInBox", "member/logBefore.jsp");
 		request.setAttribute("contentPage", "mainContent.jsp");
 		return "index";

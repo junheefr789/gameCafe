@@ -19,11 +19,11 @@
 			var data = d.data;
 			if (data.indexOf("%")!=-1) {
 				data = data.substring(1);
-				var button = $("<button></button>").attr("class","idButton").attr("id",data).text(data);
+				var button = $("<button></button>").attr("class","idButton").data("id_name",data).text(data);
 				$("#inviteIdDiv").append(button);
 			}else if(data.indexOf("#")!=-1){
 				data = data.substring(1);
-				var button = $("button").attr("id",data);
+				var button = $("button").data("id_name",data);
 				button.remove();
 			}else if(data.indexOf("_")!=-1){
 				data = data.substring(1);
