@@ -17,14 +17,7 @@
 			turn = true;
 		}
 		$(window).on("beforeunload",function(){
-			var con = confirm("정말로 게임을 그만두시겠습니까?");
-			if (con) {
-				$.ajax({
-					url:"gameGiveUp.go"
-				});
-			}else{
-				return;
-			}
+			return "정말로 나가겠습니까?";				
 		});
 		getCard();
 		function getCard(){
@@ -44,7 +37,7 @@
 							}
 							setTimeout(function(){
 								location.href="onecardEnd.go";
-							},3000);
+							},1000);
 						}else{
 							floorCard = data.floorCard[0];
 							$("#myTr").empty();

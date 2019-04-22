@@ -10,16 +10,27 @@
 <script type="text/javascript">
 	$(function(){
 		var result = "${result}";
+		var id = "${sessionScope.member.member_id}";
 		if (result) {
 			alert(result);
 		}
+		$("#siteName").click(function(){
+			location.href="home.go";
+		});
 		$("#onecardMenu").click(function(){
-			var id = "${sessionScope.member.member_id}";
 			if (!id) {
 				alert("로그인을 하셔야합니다!!");
 				return;
 			}else{
 				location.href="onecardInvite.go";
+			}
+		});
+		$("#dataMenu").click(function(){
+			if(!id){
+				alert("로그인을 하셔야합니다!!");
+				return;
+			}else{
+				location.href="data.go";
 			}
 		});
 	});

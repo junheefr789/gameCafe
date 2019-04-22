@@ -37,7 +37,8 @@ public class onecardRoomMaster {
 	
 	public JSONObject cardData(HttpServletRequest request){
 		for (int i = 0; i < roomList.size(); i++) {
-			if (request.getRemoteAddr().equals(roomList.get(i).getUser1Ip())||request.getRemoteAddr().equals(roomList.get(i).getUser2Ip())) {
+			if (request.getRemoteAddr().equals(roomList.get(i).getUser1Ip())
+					||request.getRemoteAddr().equals(roomList.get(i).getUser2Ip())) {
 				return roomList.get(i).cardData(request);
 			}
 		}
@@ -46,7 +47,8 @@ public class onecardRoomMaster {
 	
 	public JSONObject receiveCard(HttpServletRequest request){
 		for (int i = 0; i < roomList.size(); i++) {
-			if (request.getRemoteAddr().equals(roomList.get(i).getUser1Ip())||request.getRemoteAddr().equals(roomList.get(i).getUser2Ip())) {
+			if (request.getRemoteAddr().equals(roomList.get(i).getUser1Ip())
+					|| request.getRemoteAddr().equals(roomList.get(i).getUser2Ip())) {
 				return roomList.get(i).receiveCard(request);
 			}
 		}
@@ -55,7 +57,8 @@ public class onecardRoomMaster {
 	
 	public JSONObject pushCard(HttpServletRequest request){
 		for (int i = 0; i < roomList.size(); i++) {
-			if (request.getRemoteAddr().equals(roomList.get(i).getUser1Ip())||request.getRemoteAddr().equals(roomList.get(i).getUser2Ip())) {
+			if (request.getRemoteAddr().equals(roomList.get(i).getUser1Ip())
+					||request.getRemoteAddr().equals(roomList.get(i).getUser2Ip())) {
 				return roomList.get(i).pushCard(request);
 			}
 		}
